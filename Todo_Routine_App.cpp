@@ -180,9 +180,22 @@ private:
         file.close();
     }
 
+    void addRecurringTasks() {
+        vector<Task> newTasks;
+        for (const auto& task : tasks) {
+            if (task.recurring && task.completed) {
+                Task newTask = task;
+                newTask.completed = false;
+                newTasks.push_back(newTask);
+            }
+        }
+        tasks.insert(tasks.end(), newTasks.begin(), newTasks.end());
+    }
+
 public:
     TodoApp() {
         loadTasks();
+        addRecurringTasks();
     }
 
     ~TodoApp() {
@@ -200,6 +213,9 @@ public:
         cout << "5. Review Time Allocation\n";
         cout << "6. Track Task Time\n";
         cout << "7. View Productivity Report\n";
+        cout << "8. Mark Task as Completed\n";
+        cout << "9. Filter Tasks by Category\n";
+        cout << "10. View Overdue Tasks\n";
         // ... Add more planning options
     }
 
@@ -291,6 +307,54 @@ public:
         }
     }
 
+    void markTaskAsCompleted() {
+        showTasks();
+        cout << "Enter task number to mark as completed: ";
+        int index;
+        cin >> index;
+
+        if (index >= 0 && index < tasks.size()) {
+            tasks[index].completed = true;
+            cout << "Task marked as completed.\n";
+        }
+    }
+
+    void filterTasksByCategory() {
+        cout << "Enter category to filter by (Work, Personal, Health, Learning): ";
+        string category;
+        cin.ignore();
+        getline(cin, category);
+
+        cout << "\nFiltered Tasks:\n";
+        for (size_t i = 0; i < tasks.size(); ++i) {
+            if (tasks[i].category == category) {
+                cout << i << ". " << tasks[i].time << " - " << tasks[i].description << " ("
+                    << tasks[i].duration << " mins, Priority: " << tasks[i].priority
+                    << ", Recurring: " << tasks[i].recurring
+                    << ", Completed: " << tasks[i].completed << ")\n";
+            }
+        }
+    }
+
+    void viewOverdueTasks() {
+        auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        tm* localTime = localtime(&now);
+        stringstream ss;
+        ss << setw(2) << setfill('0') << localTime->tm_hour << ":"
+            << setw(2) << setfill('0') << localTime->tm_min;
+        string currentTime = ss.str();
+
+        cout << "\nOverdue Tasks:\n";
+        for (const auto& task : tasks) {
+            if (task.time < currentTime && !task.completed) {
+                cout << task.time << " - " << task.description << " ("
+                    << task.duration << " mins, Priority: " << task.priority
+                    << ", Category: " << task.category << ", Recurring: " << task.recurring
+                    << ", Completed: " << task.completed << ")\n";
+            }
+        }
+    }
+
     void showTasks() {
         cout << "\nTasks:\n";
         for (size_t i = 0; i < tasks.size(); ++i) {
@@ -329,6 +393,15 @@ public:
                 break;
             case 7:
                 showProductivityReport();
+                break;
+            case 8:
+                markTaskAsCompleted();
+                break;
+            case 9:
+                filterTasksByCategory();
+                break;
+            case 10:
+                viewOverdueTasks();
                 break;
             default:
                 cout << "Invalid choice. Please try again.\n";
