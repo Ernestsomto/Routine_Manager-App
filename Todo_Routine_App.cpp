@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 //Program code for the App _ Todo_Routine_App planner - Des
 //This is an app to manage daily recurring task as a way to
 //manage time and be more productive while styaing focused.
 
 //============== Code begins Here ============//
+=======
+// Todo_Routine_App.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -16,6 +22,7 @@
 #include <map>
 #include <numeric> // For accumulate
 #include <functional> // For count_if
+<<<<<<< HEAD
 #include <limits> // For numeric_limits
 
 // Undefine the max macro to avoid conflicts
@@ -36,6 +43,11 @@ const string CYAN = "\033[36m";
 const string WHITE = "\033[37m";
 const string BOLD = "\033[1m";
 
+=======
+
+using namespace std;
+
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
 class Task {
 public:
     string time;
@@ -59,10 +71,13 @@ private:
 public:
     void startTimer(const string& taskDesc) {
         timers[taskDesc] = make_pair(chrono::system_clock::now(), true);
+<<<<<<< HEAD
         auto startTime = chrono::system_clock::to_time_t(timers[taskDesc].first);
         char buffer[26];
         ctime_s(buffer, sizeof(buffer), &startTime);
         cout << GREEN << "Timer started for task: " << taskDesc << " at " << buffer << RESET;
+=======
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
     }
 
     void stopTimer(const string& taskDesc) {
@@ -104,7 +119,11 @@ private:
             return make_pair(a.priority, a.time) < make_pair(b.priority, b.time);
             });
 
+<<<<<<< HEAD
         cout << BOLD << "\nRecommended Schedule:\n" << RESET;
+=======
+        cout << "\nRecommended Schedule:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         cout << "=================================================\n";
         cout << "Time   | Priority | Duration | Category   | Task\n";
         cout << "=================================================\n";
@@ -128,7 +147,11 @@ private:
             }
         }
 
+<<<<<<< HEAD
         cout << BOLD << "\nTime Allocation Breakdown:\n" << RESET;
+=======
+        cout << "\nTime Allocation Breakdown:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         for (const auto& categoryTimePair : categoryTime) {
             const string& category = categoryTimePair.first;
             int minutes = categoryTimePair.second;
@@ -149,7 +172,11 @@ private:
             totalActual += tracker.getElapsedTime(task.description);
         }
 
+<<<<<<< HEAD
         cout << BOLD << "\nProductivity Report:\n" << RESET;
+=======
+        cout << "\nProductivity Report:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         cout << "Completed Tasks: " << completedTasks << "/" << tasks.size() << endl;
         cout << "Planned Time: " << totalPlanned << " minutes\n";
         cout << "Actual Time: " << fixed << setprecision(1) << totalActual << " minutes\n";
@@ -159,7 +186,11 @@ private:
     void saveTasks() {
         ofstream file(filename);
         if (!file.is_open()) {
+<<<<<<< HEAD
             cerr << RED << "Error opening file for saving tasks.\n" << RESET;
+=======
+            cerr << "Error opening file for saving tasks.\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
             return;
         }
 
@@ -174,7 +205,11 @@ private:
     void loadTasks() {
         ifstream file(filename);
         if (!file.is_open()) {
+<<<<<<< HEAD
             cerr << RED << "Error opening file for loading tasks.\n" << RESET;
+=======
+            cerr << "Error opening file for loading tasks.\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
             return;
         }
 
@@ -215,6 +250,7 @@ private:
         tasks.insert(tasks.end(), newTasks.begin(), newTasks.end());
     }
 
+<<<<<<< HEAD
     // Helper function to validate integer input within a range
     int validateInput(int min, int max) {
         int choice;
@@ -266,6 +302,8 @@ private:
         }
     }
 
+=======
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
 public:
     TodoApp() {
         loadTasks();
@@ -279,6 +317,7 @@ public:
     // ... [Existing public methods] ...
 
     void planDay() {
+<<<<<<< HEAD
         cout << BOLD << "\nDaily Planning Assistant\n" << RESET;
         cout << "0. " << RED << "Exit" << RESET << "\n";
         cout << "1. " << GREEN << "Add Task with Name" << RESET << "\n";
@@ -328,12 +367,29 @@ public:
         }
     }
 
+=======
+        cout << "\nDaily Planning Assistant\n";
+        cout << "1. Add Task\n";
+        cout << "2. Edit Task\n";
+        cout << "3. Delete Task\n";
+        cout << "4. Auto-schedule Tasks\n";
+        cout << "5. Review Time Allocation\n";
+        cout << "6. Track Task Time\n";
+        cout << "7. View Productivity Report\n";
+        cout << "8. Mark Task as Completed\n";
+        cout << "9. Filter Tasks by Category\n";
+        cout << "10. View Overdue Tasks\n";
+        // ... Add more planning options
+    }
+
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
     void addTask() {
         string time, description, category;
         int duration, priority;
         bool recurring;
 
         cout << "Enter task time (HH:MM): ";
+<<<<<<< HEAD
         time = validateTimeInput();
         cout << "Enter task description: ";
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
@@ -346,20 +402,43 @@ public:
         category = validateCategoryInput(categories);
         cout << "Is the task recurring? (1 for yes, 0 for no): ";
         recurring = validateInput(0, 1);
+=======
+        cin >> time;
+        cout << "Enter task description: ";
+        cin.ignore();
+        getline(cin, description);
+        cout << "Enter task duration (in minutes): ";
+        cin >> duration;
+        cout << "Enter task priority (1-3): ";
+        cin >> priority;
+        cout << "Enter task category (Work, Personal, Health, Learning): ";
+        cin.ignore();
+        getline(cin, category);
+        cout << "Is the task recurring? (1 for yes, 0 for no): ";
+        cin >> recurring;
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
 
         Task newTask(time, description, duration, priority, recurring, category);
         if (!hasTimeConflict(newTask)) {
             tasks.push_back(newTask);
+<<<<<<< HEAD
             cout << GREEN << "Task added successfully.\n" << RESET;
         }
         else {
             cout << RED << "Task time conflicts with an existing task.\n" << RESET;
+=======
+            cout << "Task added successfully.\n";
+        }
+        else {
+            cout << "Task time conflicts with an existing task.\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         }
     }
 
     void trackTaskTime() {
         showTasks();
         cout << "Enter task number to track: ";
+<<<<<<< HEAD
         int index = validateInput(0, static_cast<int>(tasks.size()) - 1);
 
         cout << "1. Start Timer\n2. Stop Timer\nChoice: ";
@@ -373,12 +452,32 @@ public:
             tracker.stopTimer(tasks[index].description);
             double elapsed = tracker.getElapsedTime(tasks[index].description);
             cout << "Time spent: " << elapsed << " minutes\n";
+=======
+        int index;
+        cin >> index;
+
+        if (index >= 0 && index < tasks.size()) {
+            cout << "1. Start Timer\n2. Stop Timer\nChoice: ";
+            int choice;
+            cin >> choice;
+
+            if (choice == 1) {
+                tracker.startTimer(tasks[index].description);
+                cout << "Timer started for: " << tasks[index].description << endl;
+            }
+            else if (choice == 2) {
+                tracker.stopTimer(tasks[index].description);
+                double elapsed = tracker.getElapsedTime(tasks[index].description);
+                cout << "Time spent: " << elapsed << " minutes\n";
+            }
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         }
     }
 
     void editTask() {
         showTasks();
         cout << "Enter task number to edit: ";
+<<<<<<< HEAD
         int index = validateInput(0, static_cast<int>(tasks.size()) - 1);
 
         cout << "Enter new time (HH:MM): ";
@@ -394,33 +493,79 @@ public:
         tasks[index].category = validateCategoryInput(categories);
         cout << "Is it recurring? (1 for yes, 0 for no): ";
         tasks[index].recurring = validateInput(0, 1);
+=======
+        int index;
+        cin >> index;
+
+        if (index >= 0 && index < tasks.size()) {
+            cout << "Enter new time: ";
+            cin >> tasks[index].time;
+            cout << "Enter new description: ";
+            cin.ignore();
+            getline(cin, tasks[index].description);
+            cout << "Enter new duration: ";
+            cin >> tasks[index].duration;
+            cout << "Enter new priority: ";
+            cin >> tasks[index].priority;
+            cout << "Enter new category: ";
+            cin.ignore();
+            getline(cin, tasks[index].category);
+            cout << "Is it recurring? (1 for yes, 0 for no): ";
+            cin >> tasks[index].recurring;
+        }
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
     }
 
     void deleteTask() {
         showTasks();
         cout << "Enter task number to delete: ";
+<<<<<<< HEAD
         int index = validateInput(0, static_cast<int>(tasks.size()) - 1);
 
         tasks.erase(tasks.begin() + index);
         cout << GREEN << "Task deleted successfully.\n" << RESET;
+=======
+        int index;
+        cin >> index;
+
+        if (index >= 0 && index < tasks.size()) {
+            tasks.erase(tasks.begin() + index);
+        }
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
     }
 
     void markTaskAsCompleted() {
         showTasks();
         cout << "Enter task number to mark as completed: ";
+<<<<<<< HEAD
         int index = validateInput(0, static_cast<int>(tasks.size()) - 1);
 
         tasks[index].completed = true;
         cout << GREEN << "Task marked as completed.\n" << RESET;
+=======
+        int index;
+        cin >> index;
+
+        if (index >= 0 && index < tasks.size()) {
+            tasks[index].completed = true;
+            cout << "Task marked as completed.\n";
+        }
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
     }
 
     void filterTasksByCategory() {
         cout << "Enter category to filter by (Work, Personal, Health, Learning): ";
         string category;
         cin.ignore();
+<<<<<<< HEAD
         category = validateCategoryInput(categories);
 
         cout << BOLD << "\nFiltered Tasks:\n" << RESET;
+=======
+        getline(cin, category);
+
+        cout << "\nFiltered Tasks:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         for (size_t i = 0; i < tasks.size(); ++i) {
             if (tasks[i].category == category) {
                 cout << i << ". " << tasks[i].time << " - " << tasks[i].description << " ("
@@ -433,6 +578,7 @@ public:
 
     void viewOverdueTasks() {
         auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
+<<<<<<< HEAD
         tm localTime;
         localtime_s(&localTime, &now);
         stringstream ss;
@@ -441,6 +587,15 @@ public:
         string currentTime = ss.str();
 
         cout << BOLD << "\nOverdue Tasks:\n" << RESET;
+=======
+        tm* localTime = localtime(&now);
+        stringstream ss;
+        ss << setw(2) << setfill('0') << localTime->tm_hour << ":"
+            << setw(2) << setfill('0') << localTime->tm_min;
+        string currentTime = ss.str();
+
+        cout << "\nOverdue Tasks:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         for (const auto& task : tasks) {
             if (task.time < currentTime && !task.completed) {
                 cout << task.time << " - " << task.description << " ("
@@ -452,7 +607,11 @@ public:
     }
 
     void showTasks() {
+<<<<<<< HEAD
         cout << BOLD << "\nTasks:\n" << RESET;
+=======
+        cout << "\nTasks:\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
         for (size_t i = 0; i < tasks.size(); ++i) {
             cout << i << ". " << tasks[i].time << " - " << tasks[i].description << " ("
                 << tasks[i].duration << " mins, Priority: " << tasks[i].priority
@@ -466,6 +625,7 @@ public:
         do {
             planDay();
             cout << "Enter choice: ";
+<<<<<<< HEAD
             choice = validateInput(0, 11); // Assuming 0 is the exit option and 11 is the highest option
 
             switch (choice) {
@@ -507,6 +667,43 @@ public:
                 break;
             default:
                 cout << RED << "Invalid choice. Please try again.\n" << RESET;
+=======
+            cin >> choice;
+
+            switch (choice) {
+            case 1:
+                addTask();
+                break;
+            case 2:
+                editTask();
+                break;
+            case 3:
+                deleteTask();
+                break;
+            case 4:
+                suggestOptimalSchedule();
+                break;
+            case 5:
+                showTimeAllocation();
+                break;
+            case 6:
+                trackTaskTime();
+                break;
+            case 7:
+                showProductivityReport();
+                break;
+            case 8:
+                markTaskAsCompleted();
+                break;
+            case 9:
+                filterTasksByCategory();
+                break;
+            case 10:
+                viewOverdueTasks();
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
                 break;
             }
         } while (choice != 0);
@@ -515,6 +712,11 @@ public:
 
 int main() {
     TodoApp app;
+<<<<<<< HEAD
     app.run(); // Call the run method to start the application
     return 0; // Ensure the main function returns an integer
+=======
+    app.run();
+    return 0;
+>>>>>>> 970a6883e4bc3e14b8c2122a0d5a8781743e3905
 }
